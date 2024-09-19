@@ -1,0 +1,8 @@
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+    {% for q in quotes %}
+        <h2>{{q}}</h2>
+        <img src="{% cycle image0 image1 image2 image3 %}" height="400" alt="Helio Gracie">
+    {% endfor %}
+{% endblock %}
