@@ -1,0 +1,26 @@
+<!-- base.html -->
+<!-- Styling and title for every view in the app -->
+
+{% load static %}
+<html>
+    <head>
+        <title>Form Data Example</title>
+        <link rel="stylesheet" href="{% static 'default.css' %}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="content">
+        {% block content %}
+
+        {% endblock %}
+            <hr>
+            <p>
+                This page was created by Aidan Parkhurst, a student at Boston University.
+            </p>
+        </div>
+
+    </body>
+</html>

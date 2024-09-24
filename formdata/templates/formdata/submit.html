@@ -1,0 +1,10 @@
+<!-- templates/formdata/submit.html -->
+<!-- Show a response to form submission -->
+
+{% extends 'formdata/base.html' %}
+
+{% block content %}
+    <h2>Form Submitted</h2>
+    <p>Thank you for submitting the form, {{ name }}!</p>
+    <p>Your favorite color is {{ color }}.</p>
+{% endblock %}

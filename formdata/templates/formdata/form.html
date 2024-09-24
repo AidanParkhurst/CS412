@@ -1,0 +1,16 @@
+<!-- templates/formdata/form.html -->
+<!-- This is the form that the user will see when they visit the form page. -->
+
+{% extends 'formdata/base.html' %}
+
+{% block content %}
+    <h2>Very Important Form</h2>
+    <form method="post" action="{% url 'submit' %}">
+        <label for="name"> Name </label>
+        <input type="text" name="name" placeholder="Full Name" required>
+        <label for="color"> Color </label>
+        <input type="text" name="color" placeholder="Favorite Color" required>
+        {% csrf_token %}
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}
