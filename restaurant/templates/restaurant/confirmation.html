@@ -1,0 +1,26 @@
+<!-- restaurant/confirmation.html -->
+<!-- This is the confirmation page for the restaurant app. -->
+
+{% extends 'restaurant/base.html' %}
+
+{% block content %}
+    <h1>Order Confirmed!</h1>
+    <hr>
+    <p>Thank you for your order! Your sandwich will be ready by {{ready_time}}.</p>
+    <img width=250 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRV36516RfDNXlynzX0Rj5irF18CkuooiNwQQ&s" alt="logo">
+    <h2>Order details:</h2>
+    <ul>
+        {% for item in order_items %}
+            <li>{{ item }}</li>
+        {% endfor %} <br>
+
+        Instructions: {{ instructions }} <br>
+        Total Cost: ${{total_cost}}
+    </ul>
+    <h2>Customer details:</h2>
+    <ul>
+        <li>Name: {{ name }}</li>
+        <li>Phone: {{ phone }}</li>
+        <li>Email: {{ email }}</li>
+    </ul>
+{% endblock %}

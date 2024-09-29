@@ -1,0 +1,37 @@
+<!-- restaurant/order.html -->
+<!-- This is the order page for the restaurant app. -->
+
+{% extends 'restaurant/base.html' %}
+
+{% block content %}
+    <h1>Let's Get Serious...</h1>
+    <hr>
+    <form method="post" action="{% url 'confirmation' %}">
+        <h2>Menu</h2>
+        <input type="hidden" name="special" value="{{special}}">
+        <label for="spc">Today's Special!</label>
+        <input type="checkbox" name="spc"> {{special}} - $9.99<br><br>
+
+        <input type="checkbox" name="bgc"> Bacon Pickled Onion Grilled Cheese - $6.99<br>
+        <input type="checkbox" name="tec"> Taylor Ham Egg & Cheese on a Bagel - $7.99<br>
+        <input type="checkbox" name="prp"> Proscuitto & Roasted Peppers in Balsamic - $8.99<br>
+        <input type="checkbox" name="cof"> Hot Coffee - $1.99<br>
+        <div class="indent">
+            <label for="milk">+$0.50 Milk 
+            <input type="checkbox" name="milk"></label>
+            <label for="sugar">+$0.25 Sugar 
+            <input type="checkbox" name="sugar"></label>
+        </div>
+        <h2>Special Instructions</h2>
+        <textarea name="instructions" placeholder="Special instructions for your order" cols="40" rows="3"></textarea>
+        <h2>Customer Info</h2>
+        <label for="name"> Name </label>
+        <input class="text" type="text" name="name" placeholder="Full Name">
+        <label for="phone"> Phone </label>
+        <input class="text" type="text" name="phone" placeholder="(XXX)-XXX-XXXX">
+        <label for="email"> Email </label>
+        <input class="text" type="email" name="email" placeholder="serious@sandwiches.com">
+        {% csrf_token %}
+        <button type="submit">Place order!</button>
+    </form>
+{% endblock %}

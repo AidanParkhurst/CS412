@@ -1,0 +1,24 @@
+<!-- main.html -->
+<!-- This is the home page for the restaurant app. -->
+
+{% extends 'restaurant/base.html' %}
+
+{% block content %}
+    <h1>The Serious Sandwich Co.</h1>
+    <hr>
+    <div class="row">
+        <img width=350 src="https://www.thecolombo.co.nz/wp-content/uploads/2022/03/the-serious-sandwich-02.jpg" alt="Sandwich">
+        <table>
+            <tr><th>Day</th><th>Hours</th></tr>
+            <tr><td>Monday</td><td>9am-5pm</td></tr>
+            <tr><td>Tuesday</td><td>9am-5pm</td></tr>
+            <tr><td>Wednesday</td><td>9am-5pm</td></tr>
+            <tr><td>Thursday</td><td>9am-5pm</td></tr>
+            <tr><td>Friday</td><td>9am-5pm</td></tr>
+            <tr><td>Saturday</td><td>10am-3pm</td></tr>
+            <tr><td>Sunday</td><td>Closed</td></tr>
+        </table>
+    </div>
+    <hr>
+    <p>Come visit us at 123 Business Lane, to enjoy a serious sandwich today!</p>
+{% endblock %}
