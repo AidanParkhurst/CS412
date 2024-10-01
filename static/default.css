@@ -91,6 +91,13 @@ h2 {
     margin-top: 20px;
     margin-bottom: 10px;
 }
+h3 {
+    display: block;
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
 label {
     display: block;
     font-size: .8em;
@@ -135,6 +142,28 @@ button:hover {
 
 .indent {
     text-indent: 30px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 5px;
+    gap: 5px;
+
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+li {
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+li:hover {
+    background-color: #ffffff;
+}
+li:nth-child(odd) {
+    background-color: #f0f0f0;
+}
+li:nth-child(odd):hover {
+    background-color: #fafafa
 }
 
 hr {

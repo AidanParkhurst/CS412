@@ -1,0 +1,24 @@
+<!-- blog/home.html -->
+<!-- Displaying a list of blog posts -->
+
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <h1>The Blog!</h1>
+    <ul>
+        {% for post in posts %}
+            <li>
+                <img src="{{post.img}}" height="50" alt="{{post.title}}">
+                <a>{{post}}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <div>
+        {% for post in posts %}
+            <h2>{{post.title}}</h2>
+            <h3>{{post.author}} - {{post.published}}</h3>
+            <img src="{{post.img}}" width="300" alt="{{post.title}}">
+            <p>{{post.text}}</p>
+        {% endfor %}
+    </div>
+{% endblock %}
