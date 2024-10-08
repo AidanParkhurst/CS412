@@ -6,5 +6,5 @@ from django.conf import settings
 from . import views
 
 urlpatterns = [
-    path(r'', views.ShowAllView.as_view(), name='home'),
+    path(r'', views.ShowAllView.as_view(), name='blog_home'),
 ]
