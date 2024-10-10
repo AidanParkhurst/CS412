@@ -1,0 +1,21 @@
+<!-- blog/article.html -->
+
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <h1>{{post.title}}</h1>
+    <img src="{{post.img}}" width="300" alt="{{post.title}}">
+    <h3>{{post.author}} - {{post.published}}</h3>
+    <p>{{post.text}}</p>
+
+    <h2>Comments</h2>
+    <ul>
+        {% for comment in post.get_comments %}
+            <li>
+                <h3>{{comment.author}} - {{comment.published}}</h3>
+                <p>{{comment.text}}</p>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'create_comment' post.pk %}">Add a comment</a>
+{% endblock %}

@@ -9,7 +9,7 @@
         {% for post in posts %}
             <li>
                 <img src="{{post.img}}" height="50" alt="{{post.title}}">
-                <a>{{post}}</a>
+                <a href="{% url 'article' post.pk %}">{{post.title}}</a>
             </li>
         {% endfor %}
     </ul>
