@@ -1,0 +1,23 @@
+<!-- mini_fb/show_profile.html -->
+<!-- Displays a specific profile -->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+    <div class="row" style="margin-bottom: 25px;">
+        <img width=300 style="object-fit: cover" src="{{ profile.profile_picture_url }}" alt="Profile Picture">
+        <div style="margin-left: 25px; ">
+            <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
+            <p>{{ profile.city }}</p>
+            <ul class="statuses" style="max-width: 300px">
+                {% for status in profile.get_status_messages %}
+                    <li>
+                        <p>{{ status }}</p>
+                        <p class="attribution">Posted {{ status.timestamp }}</p>
+                    </li>
+                {% endfor %}
+            </ul> 
+            <a href="{% url 'create_status' profile.id %}">Post a New Status</a>
+        </div>
+    </div>
+{% endblock %}

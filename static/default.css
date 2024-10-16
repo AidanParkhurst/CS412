@@ -175,3 +175,10 @@ p.attribution {
     color: #666;
     margin-top: 20px;
 }
+
+a.block_link {
+    text-decoration: none;
+}
+a.block_link:visited {
+    color: #222;
+}

@@ -1,0 +1,13 @@
+<!-- mini_fb/create_status_form.html -->
+<!-- Form for creating a new status message -->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+    <h1>Create Status</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Create Status</button>
+    </form>
+{% endblock %}
