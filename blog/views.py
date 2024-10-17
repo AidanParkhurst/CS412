@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpRequest
 from django.views.generic import ListView, DetailView, CreateView
 
 from .models import Article
-from .forms import CreateCommentForm
+from .forms import CreateArticleForm, CreateCommentForm
 import random
 
 class ShowAllView(ListView):
@@ -50,3 +50,13 @@ class CreateCommentView(CreateView):
 
     def get_success_url(self):
         return reverse('article', kwargs={'pk': self.kwargs['pk']})
+    
+class CreateArticleView(CreateView):
+    '''A view that allows a user to create a new article'''
+
+    form_class = CreateArticleForm
+    template_name = 'blog/create_article.html'
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)

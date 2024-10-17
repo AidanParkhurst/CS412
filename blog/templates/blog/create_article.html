@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <h2>Create an Article</h2>
+    <form method = 'POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+            <button type="submit">Post Article</button>
+    </form>
+    <form action="{% url 'blog_home' %}">
+        <button class="red" type="submit">Cancel</button>
+    </form>
+{% endblock %}

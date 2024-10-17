@@ -8,7 +8,9 @@
     <ul>
         {% for post in posts %}
             <li>
-                <img src="{{post.img}}" height="50" alt="{{post.title}}">
+                {% if post.img_file %}
+                    <img src="{{post.img_file.url}}" height="50" alt="{{post.title}}">
+                {% endif %}
                 <a href="{% url 'article' post.pk %}">{{post.title}}</a>
             </li>
         {% endfor %}
@@ -17,7 +19,9 @@
         {% for post in posts %}
             <h2>{{post.title}}</h2>
             <h3>{{post.author}} - {{post.published}}</h3>
-            <img src="{{post.img}}" width="300" alt="{{post.title}}">
+            {% if post.img_file %}
+                <img src="{{post.img_file.url}}" width="300" alt="{{post.title}}">
+            {% endif %}
             <p>{{post.text}}</p>
         {% endfor %}
     </div>

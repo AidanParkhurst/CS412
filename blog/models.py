@@ -1,6 +1,7 @@
 # blog/models.py
 # Define the data structures for the blog app
 
+from django.urls import reverse
 from django.db import models
 
 # Create your models here.
@@ -10,7 +11,8 @@ class Article(models.Model):
     author = models.TextField(blank=False)
     text = models.TextField(blank=False)
     published = models.DateTimeField(auto_now_add=True)
-    img = models.URLField(blank=True)
+    # img = models.URLField(blank=True)
+    img_file = models.ImageField(blank=True)
 
     def __str__(self):
         return self.title + " by " + self.author
@@ -19,6 +21,10 @@ class Article(models.Model):
         '''Return all of the comments about this article.'''
         comments = Comment.objects.filter(article=self)
         return comments
+    
+    def get_absolute_url(self):
+        '''Return the URL to display this article.'''
+        return reverse('article', kwargs={'pk': self.pk})
 
 class Comment(models.Model):
     '''Encapsulate the idea of a Comment on an Article.'''
