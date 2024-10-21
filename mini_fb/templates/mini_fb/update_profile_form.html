@@ -1,0 +1,13 @@
+<!-- mini_fb/update_profile_form.html -->
+<!-- Form for updating an existing profile -->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+    <h1>Update Profile for {{profile}}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update Profile</button>
+    </form>
+{% endblock %}

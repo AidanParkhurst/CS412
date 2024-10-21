@@ -13,6 +13,12 @@ class CreateProfileForm(forms.ModelForm):
         model = Profile
         fields = ['first_name', 'last_name', 'city', 'email', 'profile_picture_url']
 
+class UpdateProfileForm(forms.ModelForm):
+    '''A form to update an existing profile'''
+    class Meta:
+        model = Profile
+        fields = ['city', 'email', 'profile_picture_url']
+
 class CreateStatusMessageForm(forms.ModelForm):
     '''A form to create a new status message'''
     class Meta:

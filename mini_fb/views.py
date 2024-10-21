@@ -3,10 +3,10 @@
 
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpRequest
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from .models import Profile, StatusMessage
-from .forms import CreateProfileForm, CreateStatusMessageForm
+from .models import Profile, StatusMessage, Image
+from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
 
 class ShowAllView(ListView):
     '''A view that shows all the profiles in the database'''
@@ -51,8 +51,64 @@ class CreateStatusMessageView(CreateView):
 
     def form_valid(self, form):
         form.instance.profile = Profile.objects.get(pk=self.kwargs['pk'])
+        sm = form.save()
+        files = self.request.FILES.getlist('images')
+        # Create a new Image object for each file
+        for f in files:
+            new_img = Image.objects.create(status_message=sm, image_file=f)
+            new_img.save()
+
         return super().form_valid(form)
 
     def get_success_url(self):
         return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
 
+class UpdateProfileView(UpdateView):
+    '''A view that on GET shows a form to update an existing profile'''
+    '''And on POST, updates the profile'''
+
+    form_class = UpdateProfileForm
+    template_name = 'mini_fb/update_profile_form.html'
+    model = Profile
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['profile'] = Profile.objects.get(pk=self.kwargs['pk'])
+        return context
+
+    def get_success_url(self):
+        return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
+
+class UpdateStatusMessageView(UpdateView):
+    '''A view that on GET shows a form to update an existing status message'''
+    '''And on POST, updates the status message'''
+
+    form_class = CreateStatusMessageForm
+    template_name = 'mini_fb/update_status_form.html'
+    model = StatusMessage
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        status = StatusMessage.objects.get(pk=self.kwargs['pk'])
+        context['profile'] = status.profile
+        return context
+
+    def get_success_url(self):
+        return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
+
+class DeleteStatusMessageView(DeleteView):
+    '''A view that on GET shows a form to delete an existing status message'''
+    '''And on POST, deletes the status message'''
+
+    model = StatusMessage
+    template_name = 'mini_fb/delete_status_form.html'
+    context_object_name = 'status'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        status = StatusMessage.objects.get(pk=self.kwargs['pk'])
+        context['profile'] = status.profile
+        return context
+
+    def get_success_url(self):
+        return reverse('show_profile', kwargs={'pk': self.object.profile.pk})

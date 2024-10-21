@@ -5,7 +5,10 @@
 
 {% block content %}
     <div class="row" style="margin-bottom: 25px;">
-        <img width=300 style="object-fit: cover" src="{{ profile.profile_picture_url }}" alt="Profile Picture">
+        <div class="column">
+            <img width=300 style="object-fit: cover" src="{{ profile.profile_picture_url }}" alt="Profile Picture">
+            <button onclick="window.location.href=`{% url 'update_profile' profile.id %}`">Update Profile</button>
+        </div>
         <div style="margin-left: 25px; ">
             <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
             <p>{{ profile.city }}</p>
@@ -13,11 +16,20 @@
                 {% for status in profile.get_status_messages %}
                     <li>
                         <p>{{ status }}</p>
+                        {% if status.get_images %}
+                            {% for image in status.get_images %}
+                                <img src="{{ image.image_file.url }}" alt="Status Image" style="max-width: 45%">
+                            {% endfor %}
+                        {% endif %}
                         <p class="attribution">Posted {{ status.timestamp }}</p>
+                        <div class="row">
+                            <a style="font-size: small; text-decoration: none; color: #ee2200" href="{% url 'delete_status' status.pk %}">Delete</a>
+                            <a style="font-size: small; text-decoration: none; color: #00aaee; margin-left: 10px" href="{% url 'update_status' status.pk %}">Update</a>
+                        </div>
                     </li>
                 {% endfor %}
             </ul> 
-            <a href="{% url 'create_status' profile.id %}">Post a New Status</a>
+            <button onclick="window.location.href=`{% url 'create_status' profile.id %}`">Post a New Status</button>
         </div>
     </div>
 {% endblock %}
