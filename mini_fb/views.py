@@ -1,9 +1,9 @@
 # mini_fb/views.py
 # This file contains the views for the mini_fb app.
 
-from django.shortcuts import render, reverse
+from django.shortcuts import render, reverse, redirect
 from django.http import HttpResponse, HttpRequest
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import View, ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .models import Profile, StatusMessage, Image
 from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
@@ -112,3 +112,39 @@ class DeleteStatusMessageView(DeleteView):
 
     def get_success_url(self):
         return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
+    
+class CreateFriendView(View):
+    '''A view that creates a friendship between two profiles'''
+
+    def get(self, request, *args, **kwargs):
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        friend = Profile.objects.get(pk=self.kwargs['friend_pk'])
+        profile.add_friend(friend)
+
+        return redirect(reverse('show_profile', kwargs={'pk': profile.pk}))
+    
+class ShowFriendSuggestionsView(DetailView):
+    '''A view that shows friend suggestions for a profile'''
+
+    model = Profile
+    template_name = 'mini_fb/friend_suggestions.html'
+    context_object_name = 'profile'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        context['suggested_friends'] = profile.get_friend_suggestions()
+        return context
+    
+class ShowNewsFeedView(DetailView):
+    '''A view that shows the news feed for a profile'''
+
+    model = Profile 
+    template_name = 'mini_fb/news_feed.html'
+    context_object_name = 'profile'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        context['news_feed'] = profile.get_news_feed()
+        return context

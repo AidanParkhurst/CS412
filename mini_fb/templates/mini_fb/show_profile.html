@@ -3,11 +3,29 @@
 
 {% extends 'mini_fb/base.html' %}
 
+{% block navlinks %}
+    <a href="{% url 'news_feed' profile.pk %}">View {{profile.first_name}}'s Feed</a>
+{% endblock %}
+
 {% block content %}
     <div class="row" style="margin-bottom: 25px;">
         <div class="column">
             <img width=300 style="object-fit: cover" src="{{ profile.profile_picture_url }}" alt="Profile Picture">
             <button onclick="window.location.href=`{% url 'update_profile' profile.id %}`">Update Profile</button>
+            <button onclick="window.location.href=`{% url 'friend_suggestions' profile.id %}`">Find Suggested Friends</button>
+            <h2>Friends</h2>
+            <div class="friends">
+                {% for friend in profile.get_friends %}
+                    <div class="row" style="margin-bottom: 10px">
+                        <img width=50 height=50 style="object-fit: cover; margin-right: 10px" src="{{ friend.profile_picture_url }}" alt="Profile Picture">
+                        <a style="text-decoration: none; display: flex; align-items: center;" href="{% url 'show_profile' friend.id %}">{{ friend.first_name }} {{ friend.last_name }}</a>
+                    </div>
+                {% endfor %}
+                {% if profile.get_friends|length == 0 %}
+                    <p>No friends yet!</p>
+                {% endif %}
+
+            </div>
         </div>
         <div style="margin-left: 25px; ">
             <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>

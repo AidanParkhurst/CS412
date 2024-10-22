@@ -1,0 +1,19 @@
+<!-- mini_fb/friend_suggestions.html -->
+<!-- Shows a list of suggested friends for a given profile -->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+<h1>{{profile}} may know...</h1>
+{% for friend in suggested_friends %}
+    <div class="row" style="margin-bottom: 25px;">
+        <img height=200 width=200 style="object-fit: cover" src="{{ friend.profile_picture_url }}" alt="Profile Picture">
+        <div class="div" style="margin-left: 25px; ">
+            <h2>{{ friend.first_name }} {{ friend.last_name }}</h2>
+            <p>{{ friend.city }}</p>
+            <button onclick="window.location.href=`{% url 'create_friend' profile.pk friend.pk %}`">Add Friend</button>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}
