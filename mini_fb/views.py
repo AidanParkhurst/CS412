@@ -118,7 +118,7 @@ class CreateFriendView(View):
 
     def get(self, request, *args, **kwargs):
         profile = Profile.objects.get(pk=self.kwargs['pk'])
-        friend = Profile.objects.get(pk=self.kwargs['friend_pk'])
+        friend = Profile.objects.get(pk=self.kwargs['other_pk'])
         profile.add_friend(friend)
 
         return redirect(reverse('show_profile', kwargs={'pk': profile.pk}))
