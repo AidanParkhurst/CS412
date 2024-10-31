@@ -5,6 +5,11 @@
 
 {% block content %}
     <h1>The Blog!</h1>
+    {% if request.user.is_authenticated %}
+        Logged in user: {{ request.user }}.
+    {% else %}
+        Not logged in.
+    {% endif %}
     <ul>
         {% for post in posts %}
             <li>
