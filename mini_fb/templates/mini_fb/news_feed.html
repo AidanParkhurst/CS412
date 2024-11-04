@@ -2,9 +2,7 @@
 <!-- Shows a list of all status messages for a given profile and its friends -->
 
 {% extends 'mini_fb/base.html' %}
-{% block navlinks %}
-    <a href="{% url 'show_profile' profile.pk %}">Back to {{profile.first_name}}'s Page</a>
-{% endblock %}
+
 {% block content %}
 <h1>{{profile}}'s Feed:</h1>
 {% for status in news_feed %}

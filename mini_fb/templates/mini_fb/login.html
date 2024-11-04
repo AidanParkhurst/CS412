@@ -1,0 +1,15 @@
+<!-- mini_fb/login.html -->
+<!-- Form for logging into an existing profile -->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+    <h1>Login</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" name="next" value="{% url 'show_all_profiles' %}">
+        <button type="submit">Login</button>
+    </form>
+    <p class="attribution">Don't have an account? <a style="font-size: small; text-decoration: none; color: #00aaee;" href="{% url 'create_profile' %}">Create one here</a></p>
+{% endblock %}

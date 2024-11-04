@@ -11,7 +11,7 @@
         <div class="div" style="margin-left: 25px; ">
             <h2>{{ friend.first_name }} {{ friend.last_name }}</h2>
             <p>{{ friend.city }}</p>
-            <button onclick="window.location.href=`{% url 'create_friend' profile.pk friend.pk %}`">Add Friend</button>
+            <button onclick="window.location.href=`{% url 'create_friend' friend.pk %}`">Add Friend</button>
         </div>
     </div>
 {% endfor %}

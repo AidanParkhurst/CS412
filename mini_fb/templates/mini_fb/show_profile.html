@@ -2,17 +2,14 @@
 <!-- Displays a specific profile -->
 
 {% extends 'mini_fb/base.html' %}
-
-{% block navlinks %}
-    <a href="{% url 'news_feed' profile.pk %}">View {{profile.first_name}}'s Feed</a>
-{% endblock %}
-
 {% block content %}
     <div class="row" style="margin-bottom: 25px;">
         <div class="column">
             <img width=300 style="object-fit: cover" src="{{ profile.profile_picture_url }}" alt="Profile Picture">
-            <button onclick="window.location.href=`{% url 'update_profile' profile.id %}`">Update Profile</button>
-            <button onclick="window.location.href=`{% url 'friend_suggestions' profile.id %}`">Find Suggested Friends</button>
+            {% if profile.pk == current_user.pk %}
+                <button onclick="window.location.href=`{% url 'update_profile' %}`">Update Profile</button>
+                <button onclick="window.location.href=`{% url 'friend_suggestions' %}`">Find Suggested Friends</button>
+            {% endif %}
             <h2>Friends</h2>
             <div class="friends">
                 {% for friend in profile.get_friends %}
@@ -47,7 +44,9 @@
                     </li>
                 {% endfor %}
             </ul> 
-            <button onclick="window.location.href=`{% url 'create_status' profile.id %}`">Post a New Status</button>
+            {% if profile.pk == current_user.pk %}
+            <button onclick="window.location.href=`{% url 'create_status' %}`">Post a New Status</button>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
