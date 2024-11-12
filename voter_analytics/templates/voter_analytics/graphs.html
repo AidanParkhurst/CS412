@@ -1,0 +1,13 @@
+<!-- voter_analytics/graphs.html -->
+{% extends 'voter_analytics/base.html' %}
+
+{% block content %}
+<h1>Statistics on Voters in Newton, MA</h1>
+{% include 'voter_analytics/search.html' %}
+<h2>Graphs</h2>
+<div class="graphs" style="min-height: 350px;">
+{{birth_year_div|safe}}
+{{party_div|safe}}
+{{election_div|safe}}
+</div>
+{% endblock %}

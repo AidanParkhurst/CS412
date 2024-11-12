@@ -1,0 +1,39 @@
+<!-- templates/voter_analytics/voters.html -->
+{% extends 'voter_analytics/base.html' %}
+
+{% block content %}
+<h1>List of Voters in Newton, MA</h1>
+{% include 'voter_analytics/search.html' %}
+<h2>Voters</h2>
+<table>
+    <tr>
+        <th>Last Name</th>
+        <th>First Name</th>
+        <th>Address</th>
+        <th>Date of Birth</th>
+        <th>Party</th>
+        <th>Voter Score</th>
+    </tr>
+    {% for voter in voters %}
+    <tr class="clickable" onclick="window.location.href=`{% url 'voter' voter.pk %}`">
+        <td>{{ voter.last_name }}</td>
+        <td>{{ voter.first_name }}</td>
+        <td>{{ voter.street_number }} {{ voter.street_name }}</td>
+        <td>{{ voter.birthdate }}</td>
+        <td>{{ voter.party }}</td>
+        <td>{{ voter.voter_score }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% if is_paginated %}
+    <div class="row" style="margin-top: 10px; width: 100%; justify-content: space-around;">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+    {% endif %}
+    </div>
+{% endif %}
+{% endblock %}

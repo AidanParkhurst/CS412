@@ -1,0 +1,50 @@
+<h2>Filter Voters</h2>
+<form>
+    <div class="row">
+
+        <label class="filter_drop" for="party">Party Affiliation
+        <select name="party">
+            <option value="">Any</option>
+            {% for party in possible_parties %}
+                <option value="{{ party }}">{{ party }}</option>
+            {% endfor %}
+        </select></label>
+
+        <label class="filter_drop" for="min_birth_year">Minimum Birth Year
+        <select name="min_birth_year">
+            <option value="">No Min</option>
+            {% for year in possible_birth_years %}
+                <option value="{{ year }}">{{ year }}</option>
+            {% endfor %}
+        </select></label>
+
+        <label class="filter_drop" for="max_birth_year">Maximum Birth Year
+        <select name="max_birth_year">
+            <option value="">No Max</option>
+            {% for year in possible_birth_years %}
+                <option value="{{ year }}">{{ year }}</option>
+            {% endfor %}
+        </select></label>
+
+        <label class="filter_drop" for="voter_score">Voter Score
+        <select name="voter_score">
+            <option value="">Any</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select></label>
+
+    </div>
+    <label for="specific_elections">Voted in...</label>
+    <div name="specific_elections">
+        <input type="checkbox" name="v20state"> 2020 State
+        <input type="checkbox" name="v21town"> 2021 Town
+        <input type="checkbox" name="v21primary"> 2021 Primary
+        <input type="checkbox" name="v22general"> 2022 General
+        <input type="checkbox" name="v23town"> 2023 Town 
+    </div>
+    <button type="submit">Filter</button>
+</form>

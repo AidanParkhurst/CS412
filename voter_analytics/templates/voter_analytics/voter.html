@@ -1,0 +1,81 @@
+<!-- voter_analytics/voter.html -->
+<!-- show all details about a specific voter -->
+
+{% extends 'voter_analytics/base.html' %}
+
+{% block content %}
+<h1>{{voter}}</h1>
+<h2>Details</h2>
+<table style="margin-left: 0">
+    <tr>
+        <th>Last Name</th>
+        <td>{{ voter.last_name }}</td>
+    </tr>
+    <tr>
+        <th>First Name</th>
+        <td>{{ voter.first_name }}</td>
+    </tr>
+    <tr>
+        <th>Address</th>
+        <td>{{ voter.street_number }} {{ voter.street_name }}</td>
+    </tr>
+    <tr>
+        <th>Date of Birth</th>
+        <td>{{ voter.birthdate }}</td>
+    </tr>
+    <tr>
+        <th>Party</th>
+        <td>{{ voter.party }}</td>
+    </tr>
+    <tr>
+        <th>2020 State Election</th>
+        {% if voter.v20state %}
+            <td>Voted</td>
+        {% else %}
+            <td>Didn't Vote</td>
+        {% endif %}
+    </tr>
+    <tr>
+        <th>2021 Town Election</th>
+        {% if voter.v21state %}
+            <td>Voted</td>
+        {% else %}
+            <td>Didn't Vote</td>
+        {% endif %}
+    </tr>
+    <tr>
+        <th>2021 Primary Election</th>
+        {% if voter.v21primary %}
+            <td>Voted</td>
+        {% else %}
+            <td>Didn't Vote</td>
+        {% endif %}
+    </tr>
+    <tr>
+        <th>2022 General Election</th>
+        {% if voter.v22general %}
+            <td>Voted</td>
+        {% else %}
+            <td>Didn't Vote</td>
+        {% endif %}
+    </tr>
+    <tr>
+        <th>2023 Town Election</th>
+        {% if voter.v23town %}
+            <td>Voted</td>
+        {% else %}
+            <td>Didn't Vote</td>
+        {% endif %}
+    </tr>
+    <tr>
+        <th>Voter Score</th>
+        <td>{{ voter.voter_score }}</td>
+    </tr>
+    <tr>
+        <th>
+        <a href="https://www.google.com/maps?q={{voter.street_number}} {{voter.street_name}}, Newton MA, {{voter.zip_code}}">Google Maps</a>
+        </th>
+    </tr>
+</table>
+
+{% endblock %}

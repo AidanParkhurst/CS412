@@ -81,11 +81,20 @@ th, td {
     padding: 5px 10px;
     border-bottom: 1px solid #ccc;
 }
-th:first-child, td:first-child {
+th, td {
     border-right: 1px solid #ccc;
 }
-table:last-child, th:last-child {
+th:last-child, td:last-child {
+    border-right: none;
+}
+tr:last-child td, tr:last-child th {
     border-bottom: none;
+}
+tr.clickable {
+    cursor: pointer;
+}
+tr.clickable:hover {
+    background-color: #f0f0f0;
 }
 
 h2 {
@@ -191,4 +200,12 @@ a.block_link {
 }
 a.block_link:visited {
     color: #222;
+}
+
+label.filter_drop {
+    display: flex;
+    flex-direction: column;
+    font-size: .8em;
+    color: #666;
+    margin-right: 10px;
 }
