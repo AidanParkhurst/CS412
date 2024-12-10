@@ -1,0 +1,17 @@
+<!-- project/login.html -->
+<!-- Form for logging into an existing account -->
+
+{% extends 'project/base.html' %}
+
+{% block content %}
+<div class="center">
+    <h1>Login</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" name="next" value="{% url 'home' %}">
+        <button type="submit">Login</button>
+    </form>
+    <p style="color: var(--color-text-dark)">Don't have an account? <a style="color: var(--color-primary)" href="{% url 'signup' %}">Create one here</a></p>
+</div>
+{% endblock %}

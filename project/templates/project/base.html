@@ -1,0 +1,39 @@
+<!-- base.html -->
+<!-- Styling and title for every view in the app -->
+
+{% load static %}
+<html>
+    <head>
+        <title>Collegiate Jiujitsu League</title>
+        <link rel="stylesheet" href="{% static 'cjj.css' %}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="nav">
+            <h1 onclick="window.location.href=`{% url 'home' %}`">C<b>JJ</b></h1>
+            <a href="{% url 'home' %}">Competitions</a>
+            <a href="{% url 'all_clubs' %}">Clubs</a>
+            {% if user.is_authenticated %}
+                <form action="{% url 'logout' %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit"> Logout of {{user}}</button>
+                </form>
+            {% else %}
+                <form action="{% url 'login' %}" method="GET">
+                    <button type="submit"> Login </button>
+                </form>
+            {% endif %}
+        </div>
+        <div class="content">
+        {% block content %}
+
+        {% endblock %}
+        </div>
+        <p class="attribution">
+            This page was created by Aidan Parkhurst, a student at Boston University.
+        </p>
+    </body>
+</html>

@@ -1,0 +1,15 @@
+<!-- project/all_clubs.html -->
+<!-- This template is used to display all the clubs in the database. -->
+
+{% extends 'project/base.html' %}
+
+{% block content %}
+    <h1>All Clubs</h1>
+    <ul>
+        {% for club in clubs %}
+            <li class="clickable" onclick="window.location.href=`{% url 'view_club' club.pk %}`">
+                <h3>{{ club }}</h3>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

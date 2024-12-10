@@ -1,0 +1,19 @@
+<!-- project/club.html -->
+<!-- This template is used to display a single club. -->
+
+{% extends 'project/base.html' %}
+
+{% block content %}
+    <h1>{{ club }}</h1>
+    <div style="justify-content: space-between;" class="row">
+        <h2>Members</h2>
+        {% if is_leader %}
+            <button onclick="window.location.href=`{% url 'edit_club' club.pk %}`">Edit Roster</button>
+        {% endif %}
+    </div>
+    <ul>
+        {% for member in competitors %}
+            <li>{{ member }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,13 @@
+<!-- project/create_competition.html -->
+<!-- Form for creating a new competition -->
+
+{% extends 'project/base.html' %}
+
+{% block content %}
+    <h1>Create Competition</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Create Competition</button>
+    </form>
+{% endblock %}

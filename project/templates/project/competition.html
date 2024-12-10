@@ -1,0 +1,54 @@
+<!-- project/competition.html -->
+<!-- This template is used to display a single competition. -->
+
+{% extends 'project/base.html' %}
+
+{% block content %}
+<div class="cols">
+    <div class="vertical_half">
+        <h1 style="margin-bottom: 20px">{{ competition }}</h1>
+        <div class="info">
+            <ol class="scores">
+                {% for score in competition.get_scores %}
+                    <li>{{ score }}</li>
+                {% endfor %}
+            </ol>
+            <div class="row space_between">
+                <p><b>Status</b>{{ competition.get_completed_ratio }}</p>
+                <p><b>Mat Count</b>{{competition.MAT_COUNT}}</p>
+                <p><b>Matches per Competitor</b>{{competition.MATCHES_PER_COMPETITOR}}</p>
+            </div>
+            <p><b>Location</b>{{competition.LOCATION}}</p>
+        </div>
+        <div class="row" style="margin-bottom: 40px;">
+            <button onclick="window.location.href=`{% url 'view_bracket' competition.pk %}`">View Bracket</button>
+        {% if user.is_authenticated %}
+            {% if is_entrant %}
+                <button class="cancel" onclick="window.location.href=`{% url 'leave_competition' competition.pk %}`">Leave Competition</button>
+            {% else %}
+                <button onclick="window.location.href=`{% url 'join_competition' competition.pk %}`">Join Competition</button>
+            {% endif %}
+        {% endif %}
+        </div>
+    </div>
+    <div class="vertical_half">
+        <h2>Teams</h2>
+        <ul>
+            {% for club in competition.get_teams %}
+                <li class="clickable" onclick="window.location.href=`{% url 'view_club' club.pk %}`">
+                    {{ club }}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <h2>Competitors</h2>
+        <ul>
+            {% for competitor in competition.get_competitors %}
+                <li>
+                    {{ competitor }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

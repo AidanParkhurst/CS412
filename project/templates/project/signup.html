@@ -1,0 +1,16 @@
+<!-- project/signup.html -->
+<!-- This template is used to display the signup form. -->
+
+{% extends 'project/base.html' %}
+
+{% block content %}
+<div class="center">
+    <h1>Create Club</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{ user_form.as_p }}
+        <button type="submit">Create Profile</button>
+    </form>
+</div>
+{% endblock %}

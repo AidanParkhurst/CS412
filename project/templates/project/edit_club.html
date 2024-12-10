@@ -1,0 +1,97 @@
+<!-- project/edit_club.html -->
+<!-- Form for updating an existing club -->
+
+{% extends 'project/base.html' %}
+
+{% block content %}
+    <form style="margin-bottom: 40px;" method="POST">
+        {% csrf_token %}
+        <h2>{{ form.as_p }}</h2>
+        <button type="submit">Update Club Name</button>
+    </form>
+    <h2>Add new Member</h2>
+    <form style="margin-bottom: 40px" action="{% url 'add_competitor' club.pk %}" method="POST">
+        {% csrf_token %}
+        <div class="row" style="margin-bottom: 20px">
+            <label for="FULL_NAME">Full Name<br>
+            <input name="FULL_NAME" type="text"/></label>
+            <label for="WEIGHT">Weight<br>
+            <input name="WEIGHT" type="text"/></label>
+            <label for="GENDER">Gender<br>
+            <select name="GENDER">
+                <option value="True">M</option>
+                <option value="False">F</option>
+            </select></label>
+            <label for="BELT_LEVEL">Belt Color<br>
+            <select name="BELT_LEVEL">
+                <option value="0">White</option>
+                <option value="1">Blue</option>
+                <option value="2">Purple</option>
+                <option value="3">Brown</option>
+                <option value="4">Black</option>
+            </select></label>
+        </div>
+        <button type="submit">Add Member</button>
+    </form>
+
+    <h2>Edit Existing Members</h2>
+    <ul>
+        {% for member in club.get_competitors %}
+            <li class="row">
+                <form class="roster row" action="{% url 'update_competitor' member.pk %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="member_id" value="{{ member.pk }}">
+                    <label for="FULL_NAME">Full Name<br>
+                    <input name="FULL_NAME" type="text" value="{{ member.FULL_NAME }}"/></label>
+                    <label for="WEIGHT">Weight<br>
+                    <input name="WEIGHT" type="text" value="{{ member.WEIGHT}}"/></label>
+                    <label for="GENDER">Gender<br>
+                    <select name="GENDER">
+                        {% if member.GENDER %}
+                            <option value="True" selected>M</option>
+                            <option value="False">F</option>
+                        {% else %}
+                            <option value="True">M</option>
+                            <option value="False" selected>F</option>
+                        {% endif %}
+                    </select></label>
+                    <label for="BELT_LEVEL">Belt Color<br>
+                    <select name="BELT_LEVEL">
+                        <!-- Select the member's belt level -->
+                        {% if member.BELT_LEVEL == 0 %}
+                            <option value="0" selected>White</option>
+                        {% else %}
+                            <option value="0">White</option>
+                        {% endif %}
+                        {% if member.BELT_LEVEL == 1 %}
+                            <option value="1" selected>Blue</option>
+                        {% else %}
+                            <option value="1">Blue</option>
+                        {% endif %}
+                        {% if member.BELT_LEVEL == 2 %}
+                            <option value="2" selected>Purple</option>
+                        {% else %}
+                            <option value="2">Purple</option>
+                        {% endif %}
+                        {% if member.BELT_LEVEL == 3 %}
+                            <option value="3" selected>Brown</option>
+                        {% else %}
+                            <option value="3">Brown</option>
+                        {% endif %}
+                        {% if member.BELT_LEVEL == 4 %}
+                            <option value="4" selected>Black</option>
+                        {% else %}
+                            <option value="4">Black</option>
+                        {% endif %}
+                    </select></label>
+                    <button type="submit">Update</button>
+                </form>
+                <form style="margin: 0; margin-left: auto" action="{% url 'delete_competitor' member.pk %}" method="POST">
+                    {% csrf_token %}
+                    <input hidden name="club_id" value="{{ club.pk }}">
+                    <button style="height: 100%" type="submit" class="cancel">Remove</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

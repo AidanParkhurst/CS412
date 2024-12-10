@@ -1,0 +1,73 @@
+<!-- project/bracket.html -->
+<!-- Display the bracket for a specific competition. -->
+
+{% extends 'project/base.html' %}
+
+{% block content %}
+<div class="space_between row" style="width: 100%">
+    <button onclick="window.location.href=`{% url 'view_competition' competition.pk %}`">Back to Comp Details</button>
+    {% if is_host %}
+        <button class="cancel" onclick="window.location.href=`{% url 'generate_bracket' competition.pk %}`">Remake Bracket</button>
+    {% endif %}
+</div>
+<div style="justify-content: space-between" class="row">
+    {% for mat in mat_range %}
+    <ul style="height: fit-content; background-color: var(--color-elevated); border: 2px solid var(--color-border)">
+        <li><h3>Mat #{{ mat|add:"1" }}</h3></li>
+        <ul class="match">
+            {% for match in matches %}
+                {% if match.MAT_NUMBER == mat %}
+                    <li>
+                        <div class="row">
+                            <form action="{% url 'set_winner' match.pk %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="winner" value="{{match.COMPETITOR1.pk}}">
+                                {% if match.WINNER == match.COMPETITOR1 %}
+                                    {% if match.SCORE == 2 %}
+                                        <button class="submission_winner" type="submit">{{match.COMPETITOR1}}</button>
+                                    {% else %}
+                                        <button class="winner" type="submit">{{match.COMPETITOR1}}</button>
+                                    {% endif %}
+                                {% else %}
+                                    <button type="submit">{{match.COMPETITOR1}}</button>
+                                {% endif %}
+                            </form>
+                            {% if match.WINNER == match.COMPETITOR1 %}
+                                {% if match.SCORE == 1 %}
+                                    <p style="border-left: 2px solid var(--color-winner) ">VS</p>
+                                {% else %}
+                                    <p style="border-left: 2px solid var(--color-primary) ">VS</p>
+                                {% endif %}
+                            {% elif match.WINNER == match.COMPETITOR2 %}
+                                {% if match.SCORE == 1 %}
+                                    <p style="border-right: 2px solid var(--color-winner) ">VS</p>
+                                {% else %}
+                                    <p style="border-right: 2px solid var(--color-primary) ">VS</p>
+                                {% endif %}
+                            {% else %}
+                                <p>VS</p>
+                            {% endif %}
+                            <form action="{% url 'set_winner' match.pk %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="winner" value="{{match.COMPETITOR2.pk}}">
+                                {% if match.WINNER == match.COMPETITOR2 %}
+                                    {% if match.SCORE == 2 %}
+                                        <button class="submission_winner" type="submit">{{match.COMPETITOR2}}</button>
+                                    {% else %}
+                                        <button class="winner" type="submit">{{match.COMPETITOR2}}</button>
+                                    {% endif %}
+                                {% else %}
+                                    <button type="submit">{{match.COMPETITOR2}}</button>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </ul>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

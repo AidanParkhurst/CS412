@@ -1,0 +1,17 @@
+<!-- project/home.html -->
+<!-- home page, displays upcoming comps, and common user actions -->
+
+{% extends 'project/base.html' %}
+
+{% block content %}
+    <h1>Upcoming Competitions</h1>
+    <ul>
+        {% for comp in competitions %}
+            <li class="clickable" onclick="window.location.href=`{% url 'view_competition' comp.pk %}`">
+                <h3>{{ comp }}</h3>
+                <p>{{ comp.LOCATION }}</p> 
+            </li>
+        {% endfor %}
+    </ul>
+    <button onclick="window.location.href=`{% url 'create_competition' %}`">+ Create Competition</button>
+{% endblock %}
